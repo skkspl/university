@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:17.4
+    environment:
+      POSTGRES_DB: library
+      POSTGRES_USER: library
+      POSTGRES_PASSWORD: library
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - my-data://D/library-db-store
+    ports:
+      - "5432:5432"
+  # сама база постгрес по умолчанию 5432,можно например так сделать "5432":"5432" это чтобы мы могли к базе подключаться,которая внутри докера
+volumes:
+  my-data:
