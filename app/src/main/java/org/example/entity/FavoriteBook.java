@@ -1,11 +1,10 @@
 package org.example.entity;
 
-public class ReadingProgress {
+public class FavoriteBook {
     private Integer userId;
     private Integer bookId;
-    private Integer currentPage;
 
-    public ReadingProgress() {
+    public FavoriteBook() {
     }
 
     // Getters and Setters
@@ -23,13 +22,5 @@ public class ReadingProgress {
 
     public void setBookId(Integer bookId) {
         this.bookId = bookId;
-    }
-
-    public Integer getCurrentPage() {
-        return currentPage;
-    }
-
-    public void setCurrentPage(Integer currentPage) {
-        this.currentPage = currentPage;
     }
 }
