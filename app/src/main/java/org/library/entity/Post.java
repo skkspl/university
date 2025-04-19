@@ -1,4 +1,4 @@
-package org.example.entity;
+package org.library.entity;
 
 public class Post {
     private Long id;
