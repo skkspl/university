@@ -1,4 +1,4 @@
-package org.example.entity;
+package org.library.entity;
 
 public class Like {
     private Integer id;

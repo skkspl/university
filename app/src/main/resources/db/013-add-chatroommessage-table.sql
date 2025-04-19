@@ -1,0 +1,9 @@
+CREATE TABLE chat_room_message (
+    id BIGSERIAL PRIMARY KEY,
+    room_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    message TEXT NOT NULL,
+    TIMESTAMP DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (room_id) REFERENCES chat_rooms(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

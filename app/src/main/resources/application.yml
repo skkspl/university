@@ -1,0 +1,19 @@
+spring:
+  project:
+    name: library
+    version: 1.0.0
+  datasource:
+    url: jdbc:postgresql://localhost:5432/library
+    username: library
+    password: library
+  flyway:
+    default-schema: public
+    schemas:
+      - public
+    url: ${spring.datasource.url}
+    name: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+
+swagger:
+  swagger-ui:
+    path: /swagger-ui

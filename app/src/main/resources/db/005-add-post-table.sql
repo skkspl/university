@@ -1,7 +1,9 @@
-CREATE TABLE favorite_book (
+CREATE TABLE post (
+    id BIGSERIAL PRIMARY KEY,
     user_id BIGINT NOT NULL,
     book_id BIGINT NOT NULL,
-    PRIMARY KEY (user_id, book_id),
+    text TEXT,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
 );
