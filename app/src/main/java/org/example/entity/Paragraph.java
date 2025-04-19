@@ -1,17 +1,14 @@
 package org.example.entity;
 
 public class Paragraph {
-    private int id;
-    private int bookId;
-    private int paragraphNumber;
+    private Integer id;
+    private Integer bookId;
+    private Integer paragraphNumber;
     private String text;
 
-    public Paragraph(int id, int bookId, int paragraphNumber, String text) {
-        this.id = id;
-        this.bookId = bookId;
-        this.paragraphNumber = paragraphNumber;
-        this.text = text;
+    public Paragraph() {
     }
+
 
     // Getters and Setters
     public int getId() { return id; }

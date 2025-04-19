@@ -1,13 +1,12 @@
 package org.example.entity;
 
 public class Follow {
-    private int followerId;
-    private int followedId;
+    private Integer followerId;
+    private Integer followedId;
 
-    public Follow(int followerId, int followedId) {
-        this.followerId = followerId;
-        this.followedId = followedId;
+    public Follow() {
     }
+
 
     // Getters and Setters
     public int getFollowerId() { return followerId; }

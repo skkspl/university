@@ -1,4 +1,4 @@
-CREATE TABLE book_favorite (
+CREATE TABLE favorite_book (
     user_id INT NOT NULL,
     book_id INT NOT NULL,
     PRIMARY KEY (user_id, book_id),
