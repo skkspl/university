@@ -1,19 +1,15 @@
 package org.example.entity;
 
 public class Note {
-    private int id;
-    private int paragraphId;
-    private int userId;
+    private Integer id;
+    private Integer paragraphId;
+    private Integer userId;
     private String text;
     private String creationDate;
 
-    public Note(int id, int paragraphId, int userId, String text, String creationDate) {
-        this.id = id;
-        this.paragraphId = paragraphId;
-        this.userId = userId;
-        this.text = text;
-        this.creationDate = creationDate;
+    public Note() {
     }
+
 
     // Getters and Setters
     public int getId() { return id; }

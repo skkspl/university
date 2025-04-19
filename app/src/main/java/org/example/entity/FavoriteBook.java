@@ -1,10 +1,10 @@
 package org.example.entity;
 
-public class BookFavorite {
+public class FavoriteBook {
     private int userId;
     private int bookId;
 
-    public BookFavorite(int userId, int bookId) {
+    public FavoriteBook(int userId, int bookId) {
         this.userId = userId;
         this.bookId = bookId;
     }

@@ -1,25 +1,19 @@
 package org.example.entity;
 
 public class User {
-    private int id;
+    private Long id;
     private String username;
     private String email;
     private String password;
     private String avatar;
     private String description;
 
-    public User(int id, String username, String email, String password, String avatar, String description) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.avatar = avatar;
-        this.description = description;
+    public User() {
     }
 
     // Getters and Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
     public String getEmail() { return email; }

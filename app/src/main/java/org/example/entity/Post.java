@@ -1,19 +1,15 @@
 package org.example.entity;
 
 public class Post {
-    private int id;
-    private int userId;
-    private int bookId;
+    private Long id;
+    private Integer userId;
+    private Integer bookId;
     private String text;
     private String creationDate;
 
-    public Post(int id, int userId, int bookId, String text, String creationDate) {
-        this.id = id;
-        this.userId = userId;
-        this.bookId = bookId;
-        this.text = text;
-        this.creationDate = creationDate;
+    public Post() {
     }
+
 
     // Getters and Setters
     public int getId() { return id; }

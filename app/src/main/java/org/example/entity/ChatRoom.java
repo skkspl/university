@@ -1,23 +1,19 @@
 package org.example.entity;
 
 public class ChatRoom {
-    private int id;
+    private Long id;
     private int bookId;
     private String name;
     private String description;
     private int creatorId;
 
-    public ChatRoom(int id, int bookId, String name, String description, int creatorId) {
-        this.id = id;
-        this.bookId = bookId;
-        this.name = name;
-        this.description = description;
-        this.creatorId = creatorId;
+    public ChatRoom() {
     }
 
+
     // Getters and Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     public int getBookId() { return bookId; }
     public void setBookId(int bookId) { this.bookId = bookId; }
     public String getName() { return name; }

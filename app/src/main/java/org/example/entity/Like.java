@@ -1,16 +1,12 @@
 package org.example.entity;
 
 public class Like {
-    private int id;
-    private int postId;
-    private int userId;
+    private Integer id;
+    private Integer postId;
+    private Integer userId;
     private String createdAt;
 
-    public Like(int id, int postId, int userId, String createdAt) {
-        this.id = id;
-        this.postId = postId;
-        this.userId = userId;
-        this.createdAt = createdAt;
+    public Like() {
     }
 
     // Getters and Setters

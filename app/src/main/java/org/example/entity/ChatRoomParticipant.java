@@ -1,15 +1,13 @@
 package org.example.entity;
 
 public class ChatRoomParticipant {
-    private int roomId;
-    private int userId;
+    private Integer roomId;
+    private Integer userId;
     private String joinDate;
 
-    public ChatRoomParticipant(int roomId, int userId, String joinDate) {
-        this.roomId = roomId;
-        this.userId = userId;
-        this.joinDate = joinDate;
+    public ChatRoomParticipant() {
     }
+
 
     // Getters and Setters
     public int getRoomId() { return roomId; }
