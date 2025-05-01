@@ -30,10 +30,7 @@ dependencies {
     annotationProcessor("org.mapstruct:mapstruct-processor:1.6.0")
     testAnnotationProcessor("org.mapstruct:mapstruct-processor:1.6.0")
 
-
-
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.security:spring-security-test") // Для тестов Security
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
