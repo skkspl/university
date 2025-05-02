@@ -1,22 +1,15 @@
 package org.library.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.annotation.Id;
+
+@Getter
+@Setter
 public class Paragraph {
-    private Integer id;
+    @Id
+    private Long id;
     private Integer bookId;
     private Integer paragraphNumber;
     private String text;
-
-    public Paragraph() {
-    }
-
-
-    // Getters and Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-    public int getBookId() { return bookId; }
-    public void setBookId(int bookId) { this.bookId = bookId; }
-    public int getParagraphNumber() { return paragraphNumber; }
-    public void setParagraphNumber(int paragraphNumber) { this.paragraphNumber = paragraphNumber; }
-    public String getText() { return text; }
-    public void setText(String text) { this.text = text; }
 }
