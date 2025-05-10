@@ -5,6 +5,7 @@ import org.library.dto.response.UserResponse;
 import org.library.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
@@ -17,4 +18,7 @@ public interface UserMapper {
 
     @Mapping(target = "id", ignore = true)
     User toEntity(UserRequest request);
+
+    @Mapping(target = "id", ignore = true)
+    User updateEntity(@MappingTarget User user, UserRequest request);
 }
