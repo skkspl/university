@@ -3,5 +3,5 @@ CREATE TABLE paragraph (
     book_id BIGINT NOT NULL,
     paragraph_number INT NOT NULL,
     text TEXT,
-    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+    FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE
 );

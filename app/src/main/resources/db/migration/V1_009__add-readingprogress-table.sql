@@ -3,6 +3,6 @@ CREATE TABLE reading_progress (
     book_id BIGINT NOT NULL,
     current_page INT NOT NULL,
     PRIMARY KEY (user_id, book_id),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE
 );

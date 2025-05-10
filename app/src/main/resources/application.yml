@@ -11,8 +11,9 @@ spring:
     schemas:
       - public
     url: ${spring.datasource.url}
-    name: ${spring.datasource.username}
+    user: ${spring.datasource.username}
     password: ${spring.datasource.password}
+    fail-on-missing-location: true
 
 swagger:
   swagger-ui:
