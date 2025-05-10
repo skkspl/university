@@ -1,6 +1,7 @@
 package org.library.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.library.dto.request.UserRequest;
 import org.library.dto.response.UserResponse;
@@ -15,7 +16,7 @@ public class UserController {
 
     @Operation(summary = "Создание пользователя")
     @PostMapping
-    public UserResponse create(@RequestBody UserRequest request){
+    public UserResponse create(@RequestBody @Valid UserRequest request){
         return userService.createUser(request);
     }
 
