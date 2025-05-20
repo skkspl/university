@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.library.dto.request.UserRequest;
+import org.library.dto.response.PostResponse;
 import org.library.dto.response.UserResponse;
 import org.library.service.UserService;
 import org.springdoc.core.annotations.ParameterObject;
@@ -34,6 +35,11 @@ public class UserController {
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Long id) {
         userService.deleteUser(id);
+    }
+
+    @GetMapping("/{id}")
+    public UserResponse getById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 
     @GetMapping(path = "/{email}")

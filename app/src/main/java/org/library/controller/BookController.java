@@ -5,8 +5,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.library.dto.request.BookRequest;
 import org.library.dto.response.BookResponse;
+import org.library.dto.response.UserResponse;
 import org.library.service.BookService;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -27,6 +34,12 @@ public class BookController {
         return bookService.updateBook(id, request);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(path = "/{id}")
+    public void delete(@PathVariable Long id) {
+        bookService.deleteBook(id);
+    }
+
     @Operation(summary = "Получение книги по ID")
     @GetMapping("/{id}")
     public BookResponse getById(@PathVariable Long id) {
@@ -41,7 +54,7 @@ public class BookController {
 
     @Operation(summary = "Получение списка всех книг")
     @GetMapping
-    public List<BookResponse> getAllBooks() {
+    public List<BookResponse> getAllBooks(@ParameterObject @PageableDefault(sort = "title") Pageable pageable) {
         return bookService.getAllBooks();
     }
 }

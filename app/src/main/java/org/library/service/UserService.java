@@ -9,6 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import static org.library.exception.ErrorCode.USER_BY_EMAIL_NOT_FOUND;
+import static org.library.exception.ErrorCode.USER_BY_ID_NOT_FOUND;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -33,8 +36,15 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public UserResponse getUserById(Long id) {
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> USER_BY_ID_NOT_FOUND.formatMessage(id).toException());
+        return userMapper.toResponse(user);
+    }
+
     public UserResponse getUserByEmail(String email) {
-        return userRepository.findByEmail(email).map(userMapper::toResponse).orElseThrow();
+        return userRepository.findByEmail(email).map(userMapper::toResponse)
+                .orElseThrow(() -> USER_BY_EMAIL_NOT_FOUND.formatMessage(email).toException());
     }
 
     public Page<UserResponse> getAllUsers(Pageable pageable) {

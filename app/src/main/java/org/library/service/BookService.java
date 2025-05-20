@@ -7,6 +7,7 @@ import org.library.entity.Book;
 import org.library.mapper.BookMapper;
 import org.library.repository.BookRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.stream.StreamSupport;
 import java.util.stream.Collectors;
 import java.util.List;
@@ -24,32 +25,28 @@ public class BookService {
     }
 
     public BookResponse getBookByTitle(String title) {
-        return bookRepository.findByTitle(title)
-                .map(bookMapper::toResponse)
-                .orElseThrow(() -> new RuntimeException("Book not found"));
+        return bookRepository.findByTitle(title).map(bookMapper::toResponse).orElseThrow(() -> new RuntimeException("Book not found"));
     }
 
     public BookResponse updateBook(Long id, BookRequest request) {
-        var existingBook = bookRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Book not found"));
-        // Метод updateEntityFromDto должен обновлять поля существующей книги (existingBook) на основе данных из request.
-        // Если такого метода нет в вашем маппере, его необходимо добавить.
+        var existingBook = bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
         bookMapper.updateEntityFromDto(existingBook, request);
         var updatedBook = bookRepository.save(existingBook);
         return bookMapper.toResponse(updatedBook);
     }
 
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
+    }
+
     public BookResponse getBookById(Long id) {
-        var book = bookRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Book not found"));
+        var book = bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
         return bookMapper.toResponse(book);
     }
 
     public List<BookResponse> getAllBooks() {
         Iterable<Book> books = bookRepository.findAll();
-        return StreamSupport.stream(books.spliterator(), false)
-                .map(bookMapper::toResponse)
-                .collect(Collectors.toList());
+        return StreamSupport.stream(books.spliterator(), false).map(bookMapper::toResponse).collect(Collectors.toList());
     }
 
 }
