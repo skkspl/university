@@ -6,7 +6,6 @@ public record BookResponse(
         String author,
         String description,
         String isbn,
-        String coverImage,
         String content
 ) {
 }

@@ -13,6 +13,5 @@ public class Book {
     private String author;
     private String description;
     private String isbn;
-    private String coverImage;
     private String content;
 }

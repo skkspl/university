@@ -3,7 +3,7 @@ CREATE TABLE note (
     paragraph_id BIGINT NOT NULL,
     user_id BIGINT NOT NULL,
     text TEXT,
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    creation_date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (paragraph_id) REFERENCES paragraph(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE CASCADE
 );
