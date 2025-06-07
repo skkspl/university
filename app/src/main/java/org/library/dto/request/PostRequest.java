@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 public record PostRequest(
         Long id,
         Integer userId,
+
         @Size(max = 100)
         @Schema(description = "Автор поста")
         Integer bookId,

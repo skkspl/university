@@ -46,6 +46,8 @@ public class PostService {
     }
 
     public Page<PostResponse> getAllPosts(Pageable pageable) {
+        pageable.getOffset();
+        pageable.getPageSize();
         return postRepository.findAll(pageable).map(postMapper::toResponse);
     }
 

@@ -54,7 +54,10 @@ public class PostController {
 
     @Operation(summary = "Получение списка всех постов")
     @GetMapping
-    public Page<PostResponse> getAllPosts(@ParameterObject @PageableDefault(sort = "UserId") Pageable pageable) {
+    public Page<PostResponse> getAllPosts(
+            @RequestParam(required = false) Long userId,
+            @RequestParam(required = false) Long bookId,
+            @ParameterObject @PageableDefault(sort = "userId") Pageable pageable) {
         return postService.getAllPosts(pageable);
     }
 }
