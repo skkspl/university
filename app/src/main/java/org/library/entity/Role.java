@@ -12,6 +12,6 @@ import org.springframework.data.annotation.Id;
 @AllArgsConstructor
 public class Role {
     @Id
-    private Integer id;
+    private Long id;
     private String name;
 }

@@ -1,7 +1,7 @@
 package org.library.security;
 
-import com.carrental.repository.RoleRepository;
-import com.carrental.repository.UserRepository;
+import org.library.repository.RoleRepository;
+import org.library.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

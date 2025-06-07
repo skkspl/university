@@ -1,14 +1,19 @@
 package org.library.exception;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 public interface ErrorResponse {
+
+    @Schema(description = "Код ошибки", example = "app-001")
     String getCode();
 
+    @Schema(description = "Сообщение ошибки", example = "Ошибка валидации")
     String getMessage();
 
+    @Schema(description = "HTTP статус ошибки", example = "422")
     HttpStatus getHttpStatus();
 
     default ApplicationException toException() {
@@ -25,6 +30,7 @@ public interface ErrorResponse {
 
     @Getter
     @RequiredArgsConstructor
+    @Schema(name = "ErrorResponse", description = "Сущность, описывающая ошибку")
     class ErrorResponseImpl implements ErrorResponse {
         private final String code;
         private final String message;

@@ -1,12 +1,17 @@
 package org.library.service;
 
 import org.library.dto.request.UserLoginRequest;
+import org.library.dto.request.UserRegisterRequest;
 import org.library.dto.response.JwtAuthResponse;
+import org.library.entity.User;
+import org.library.repository.UserRepository;
 import org.library.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,14 +19,82 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
     public JwtAuthResponse login(UserLoginRequest request) {
-        var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                request.email(),
-                request.password()
-        ));
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.email(), request.password())
+        );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtTokenProvider.generateToken(authentication);
         return new JwtAuthResponse(token);
+    }
+
+    public JwtAuthResponse register(UserRegisterRequest request) {
+        // Проверяем, существует ли пользователь с таким email
+        if (userRepository.existsByEmail(request.email())) {
+            throw new RuntimeException("Пользователь с таким email уже существует");
+        }
+
+        // Проверяем надёжность пароля
+        if (!isPasswordStrong(request.password())) {
+            throw new RuntimeException("Пароль не достаточно надёжный. Рекомендуется использовать пароль не короче 8 символов, содержащий заглавные и строчные буквы, цифры и спецсимволы.");
+        }
+
+        // Кодируем пароль перед сохранением
+        String encodedPassword = passwordEncoder.encode(request.password());
+
+        // Создаем и заполняем нового пользователя всеми полями
+        User user = new User();
+        user.setEmail(request.email());
+        user.setPassword(encodedPassword);
+        user.setUsername(request.username());
+        user.setAboutMe(request.aboutMe());
+        // Если значение roleId не передано, устанавливаем значение по умолчанию (например, 1L)
+        user.setRoleId(request.roleId() != null ? request.roleId() : 1L);
+
+        userRepository.save(user);
+
+        // Немедленная аутентификация и генерация JWT токена
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.email(), request.password())
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtTokenProvider.generateToken(authentication);
+        return new JwtAuthResponse(token);
+    }
+
+    /**
+     * Простейший валидатор надежности пароля:
+     * - Минимальная длина: 8 символов.
+     * - Должен содержать хотя бы одну заглавную букву.
+     * - Должен содержать хотя бы одну строчную букву.
+     * - Должен содержать хотя бы одну цифру.
+     * - Должен содержать хотя бы один спецсимвол.
+     */
+    private boolean isPasswordStrong(String password) {
+        if (password == null || password.length() < 8) {
+            return false;
+        }
+
+        boolean hasUpper = false;
+        boolean hasLower = false;
+        boolean hasDigit = false;
+        boolean hasSpecial = false;
+
+        for (char ch : password.toCharArray()) {
+            if (Character.isUpperCase(ch)) {
+                hasUpper = true;
+            } else if (Character.isLowerCase(ch)) {
+                hasLower = true;
+            } else if (Character.isDigit(ch)) {
+                hasDigit = true;
+            } else if ("!@#$%^&*()_+-=[]{}|;':\",.<>/?".indexOf(ch) >= 0) {
+                hasSpecial = true;
+            }
+        }
+
+        return hasUpper && hasLower && hasDigit && hasSpecial;
     }
 }

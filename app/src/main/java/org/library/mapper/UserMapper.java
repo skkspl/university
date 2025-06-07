@@ -17,8 +17,10 @@ public interface UserMapper {
     UserResponse toResponse(User user);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "roleId", constant = "2L")
     User toEntity(UserRequest request);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "roleId", ignore = true)
     User updateEntity(@MappingTarget User user, UserRequest request);
 }

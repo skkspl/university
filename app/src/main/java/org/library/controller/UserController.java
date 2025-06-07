@@ -42,7 +42,7 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @GetMapping(path = "/{email}")
+    @GetMapping(path = "by-email/{email}")
     public UserResponse getByEmail(@PathVariable String email) {
         return userService.getUserByEmail(email);
     }
