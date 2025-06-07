@@ -32,31 +32,26 @@ public class AuthService {
     }
 
     public JwtAuthResponse register(UserRegisterRequest request) {
-        // Проверяем, существует ли пользователь с таким email
         if (userRepository.existsByEmail(request.email())) {
             throw new RuntimeException("Пользователь с таким email уже существует");
         }
 
-        // Проверяем надёжность пароля
         if (!isPasswordStrong(request.password())) {
             throw new RuntimeException("Пароль не достаточно надёжный. Рекомендуется использовать пароль не короче 8 символов, содержащий заглавные и строчные буквы, цифры и спецсимволы.");
         }
 
-        // Кодируем пароль перед сохранением
         String encodedPassword = passwordEncoder.encode(request.password());
 
-        // Создаем и заполняем нового пользователя всеми полями
+
         User user = new User();
         user.setEmail(request.email());
         user.setPassword(encodedPassword);
         user.setUsername(request.username());
         user.setAboutMe(request.aboutMe());
-        // Если значение roleId не передано, устанавливаем значение по умолчанию (например, 1L)
         user.setRoleId(request.roleId() != null ? request.roleId() : 1L);
 
         userRepository.save(user);
 
-        // Немедленная аутентификация и генерация JWT токена
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.email(), request.password())
         );
@@ -65,36 +60,24 @@ public class AuthService {
         return new JwtAuthResponse(token);
     }
 
-    /**
-     * Простейший валидатор надежности пароля:
-     * - Минимальная длина: 8 символов.
-     * - Должен содержать хотя бы одну заглавную букву.
-     * - Должен содержать хотя бы одну строчную букву.
-     * - Должен содержать хотя бы одну цифру.
-     * - Должен содержать хотя бы один спецсимвол.
-     */
     private boolean isPasswordStrong(String password) {
         if (password == null || password.length() < 8) {
             return false;
         }
 
-        boolean hasUpper = false;
-        boolean hasLower = false;
-        boolean hasDigit = false;
-        boolean hasSpecial = false;
 
         for (char ch : password.toCharArray()) {
             if (Character.isUpperCase(ch)) {
-                hasUpper = true;
+                return false;
             } else if (Character.isLowerCase(ch)) {
-                hasLower = true;
+                return false;
             } else if (Character.isDigit(ch)) {
-                hasDigit = true;
+                return false;
             } else if ("!@#$%^&*()_+-=[]{}|;':\",.<>/?".indexOf(ch) >= 0) {
-                hasSpecial = true;
+                return false;
             }
         }
 
-        return hasUpper && hasLower && hasDigit && hasSpecial;
+        return true;
     }
 }

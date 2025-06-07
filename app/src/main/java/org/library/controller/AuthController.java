@@ -1,5 +1,6 @@
 package org.library.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.library.dto.request.UserLoginRequest;
@@ -17,11 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthService authService;
 
+    @Operation(summary = "Вход в систему")
     @PostMapping("/login")
     public JwtAuthResponse login(@RequestBody @Valid UserLoginRequest request) {
         return authService.login(request);
     }
-
+    @Operation(summary = "Регистрация пользователя")
     @PostMapping("/register")
     public JwtAuthResponse register(@RequestBody @Valid UserRegisterRequest request) {
         return authService.register(request);
